@@ -1,9 +1,9 @@
 <?php 
 /**
- * Adds Foo_Widget widget.
+ * Adds FourSquare_Explorer_Widget widget.
  */
 
-class Foo_Widget extends WP_Widget {
+class FourSquare_Explorer_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
@@ -112,4 +112,4 @@ class Foo_Widget extends WP_Widget {
 } // class Foo_Widget
 
 // register Foo_Widget widget
-add_action( 'widgets_init', create_function( '', 'register_widget( "foo_widget" );' ) );
+add_action( 'widgets_init', create_function( '', 'register_widget( "FourSquare_Explorer_Widget" );' ) );
