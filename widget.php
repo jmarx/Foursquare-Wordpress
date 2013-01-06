@@ -28,11 +28,11 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		
-		foursquare_local($instance['ll'],  $instance['location']); 
+		
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
-		echo __( 'Hello, World!', 'text_domain' );
+		foursquare_local($instance['ll'],  $instance['location']); 
 		echo $after_widget;
 	}
 
