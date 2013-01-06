@@ -109,7 +109,7 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		<?php 
 	}
 
-} // class Foo_Widget
+} // class FourSquare_Explorer_Widget
 
-// register Foo_Widget widget
+// register FourSquare_Explorer_Widget widget
 add_action( 'widgets_init', create_function( '', 'register_widget( "FourSquare_Explorer_Widget" );' ) );
