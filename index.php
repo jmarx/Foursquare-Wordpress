@@ -7,6 +7,7 @@ Author: Jeff Marx
 
 /* load php foursquare sdk */
 require_once("foursquareapi/src/FoursquareAPI.class.php");
+require_once("widget.php");
 
 /* Options page */
 add_action( 'admin_menu', 'foursquare_local_menu' );
@@ -83,26 +84,32 @@ define("LL", get_option('ll'));
 define("LOCATION", get_option('location'));
 
 /* display widget */	
-function foursquare_local() {	
-		
+function foursquare_local($ll, $location) {	
+
 	// Load the Foursquare API library
 	$client_id = CLIENT_ID;
 	$client_secret = CLIENT_SECRET;
 	
+	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($client_id) && empty($client_secret)) return;
 	
 	$foursquare = new FoursquareAPI($client_id, $client_secret);
-	$location = LOCATION;
-	$ll = LL;
 	
+	if (empty($location)) {
+		$location = LOCATION;
+	}
+	
+	if (empty($ll)) {
+		$ll = LL;
+	}
 	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($ll) && empty($location)) return;
 	
 	// Prepare parameters
 	if (!empty($ll)) {
-		$params = array("ll"=>LL,"section" => "food","venuePhotos" => 1, "limit" => 5);
+		$params = array("ll"=>$ll,"section" => "food","venuePhotos" => 1, "limit" => 5);
 	} else {
-		$params = array("near"=>LOCATION,"section" => "food","venuePhotos" => 1, "limit" => 5);
+		$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => 5);
 	}
 	/*
 	For the time being, we are going to favor a lat/long result over a spelled out letter type of result just because
