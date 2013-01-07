@@ -129,6 +129,7 @@ function foursquare_local($ll, $location) {
 	//loop through groups which only should be the one, "Recommended places"
 		foreach($group->items as $venue):
 		//loop through the items within that group and represents the venues
+		//var_dump($venue);
 				?>
 				<p>
 				<a target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a>
@@ -140,8 +141,12 @@ function foursquare_local($ll, $location) {
 					//Loop through the featured photos array. All we need is the url which is close to the top.
 						$photourl = $photo->url;
 					endforeach; ?>
-					<img width="100" height="100" src="<?php echo esc_html($photourl); ?>">
+					<img width="100" height="100" src="<?php echo esc_html($photourl); ?>"><br>
+					<?php $herenowcount = $venue->venue->hereNow->count ?>
+					<?php if (!empty($herenowcount)) { ?>
+						Here now: <?php echo esc_html($herenowcount) ?> people <br>
 				<?php
+					}
 				}
 				else {
 					 echo '<img style="border:1px solid black" src="' .plugins_url( 'images/nopic.png' , __FILE__ ). '" >';
