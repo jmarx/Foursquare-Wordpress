@@ -147,7 +147,10 @@ function foursquare_local($ll, $location) {
 					if (!empty($herenow)) {
 						$herenowcount = $herenow->count;
 						if (!empty($herenowcount) && ($herenowcount != 1)) {
-							echo "<br>Here now: ".$herenow->count." People<br>";
+							echo "<br>Here now: ".esc_html($herenowcount)." People<br>";
+						}
+						elseif (!empty($herenowcount) && ($herenowcount == 1))  {
+							echo "<br>Here now: ".esc_html($herenowcount)." Person<br>";
 						}
 					}
 				}
