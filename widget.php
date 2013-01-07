@@ -74,17 +74,11 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		if ( isset( $instance[ 'll' ] ) ) {
 			$ll = $instance[ 'll' ];			
 		}
-		else {
-			$ll = get_option('ll');
-		}
+	
 		
 		if ( isset( $instance[ 'location' ] ) ) {
 			$location = $instance[ 'location' ];			
 		}
-		else {
-			$location = get_option('location');
-		}
-		
 		
 		?>
 		
@@ -94,11 +88,7 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 			<p>
 			<strong>Location (Only use one of these);</strong>		
 			<p>
-			<?php
-			$default_ll = get_option('ll');
-			$default_location = get_option('location');
-			?>
-			
+	
 			Latitude/Longitude(Better results)<br>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'll' ); ?>" name="<?php echo $this->get_field_name( 'll' ); ?>" type="text" value="<?php echo esc_attr( $ll ); ?>" />
 			<p>
