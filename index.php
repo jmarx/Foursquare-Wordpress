@@ -135,13 +135,21 @@ function foursquare_local($ll, $location) {
 				<br>
 				<?php
 				$featuredphotos = $venue->venue->featuredPhotos->items;
+
+
 				if (!empty($featuredphotos)) {
 					foreach($featuredphotos as $photo):
 					//Loop through the featured photos array. All we need is the url which is close to the top.
 						$photourl = $photo->url;
 					endforeach; ?>
 					<img width="100" height="100" src="<?php echo esc_html($photourl); ?>">
-				<?php
+				<?php $herenow = $venue->venue->hereNow;
+					if (!empty($herenow)) {
+						$herenowcount = $herenow->count;
+						if (!empty($herenowcount) && ($herenowcount != 1)) {
+							echo "<br>Here now: ".$herenow->count." People<br>";
+						}
+					}
 				}
 				else {
 					 echo '<img style="border:1px solid black" src="' .plugins_url( 'images/nopic.png' , __FILE__ ). '" >';
