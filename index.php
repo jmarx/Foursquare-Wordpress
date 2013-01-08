@@ -9,6 +9,12 @@ Author: Jeff Marx
 require_once("foursquareapi/src/FoursquareAPI.class.php");
 require_once("widget.php");
 
+
+add_action( 'wp_enqueue_scripts', 'foursquare_stylesheet');
+function foursquare_stylesheet() {
+        wp_enqueue_style( 'foursquare-style', plugins_url('styles.css?version=1.0', __FILE__) );
+}
+
 /* Options page */
 add_action( 'admin_menu', 'foursquare_local_menu' );
 function register_mysettings() {
@@ -101,7 +107,7 @@ function foursquare_local($ll, $location) {
 		foreach($group->items as $venue):
 		//loop through the items within that group and represents the venues
 				?>
-				<p>
+				<div class="venue">
 				<a target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a>
 				<br>
 				<?php
@@ -127,8 +133,12 @@ function foursquare_local($ll, $location) {
 				}
 				else {
 					 echo '<img style="border:1px solid black" src="' .plugins_url( 'images/nopic.png' , __FILE__ ). '" >';
-				}
+				} ?>
+				</div>
+				<div style="clear:both"></div>
+		<?php
 		endforeach;
+		
 	endforeach;
 	//wooh, all done. After all that looping i need a #beer.
 }
