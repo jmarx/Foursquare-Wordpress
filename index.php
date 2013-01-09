@@ -103,9 +103,20 @@ function foursquare_local($location) {
 		//loop through the items within that group and represents the venues
 				?>
 				<div class="venue">
-				<a class="venuetitle" target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a><br>
-				<div style="margin-top:5px;">
+					<?php $catimage = $venue->venue->categories[0]->icon->prefix; ?>
+				<img style="float:left; margin-right:3px;" src="<?php echo esc_attr($catimage); ?>32.png">
+
+				<a class="venuetitle" target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a>
+				<div class="categories">
+					<?php
+
+					echo $venue->venue->categories[0]->name; ?>
+				</div>
+				<div style="clear:both; height:3px;">&nbsp;</div>
+
+				<div style="margin-top:0px;">
 					<div style="float:left; display:inline; margin-right:5px; width:45%">
+
 
 									<div style="margin-top:5px;">
 									<?php
@@ -114,13 +125,14 @@ function foursquare_local($location) {
 										$ratingcheck = ($rating > 5 ? "positive" : "negative"); ?>
 										<div class="venueScore <?php echo $ratingcheck; ?>"><?php echo round($rating, 1); ?></div>
 										<?php if (!empty($venue->venue->menu)) { ?>
-											<a class="menulink" target="_blank" href="<?php echo $venue->venue->menu->url; ?>">Menu</a><br>
+											<a class="menulink" target="_blank" href="<?php echo $venue->venue->menu->url; ?>">Menu</a>
+											<div class="address"><?php echo $venue->venue->location->address; ?></div>
+
 										<?php } else { echo "<br>";}
 									}
 										?>
 									</div>
-					<div style="clear:both">&nbsp;</div>
-										<?php echo $venue->venue->location->address; ?>
+					<div style="clear:both; height:3px;">&nbsp;</div>
 
 									<?php
 
@@ -153,9 +165,9 @@ function foursquare_local($location) {
 							 echo '<img style="border:1px solid black" src="' .plugins_url( 'images/nopic.png' , __FILE__ ). '" >';
 						} ?>
 					</div>
-					<div style="clear:both">&nbsp;</div>
+					<div style="clear:both; height:0px;">&nbsp;</div>
 					</div>
-			<div style="clear:both">&nbsp;</div>
+			<div style="clear:both; height:0px;">&nbsp;</div>
 
 				</div>
 
