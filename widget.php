@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Adds FourSquare_Explorer_Widget widget.
  */
@@ -27,12 +27,12 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		
-		
+
+
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
-		foursquare_local($instance['ll'],  $instance['location']); 
+		foursquare_local($instance['location']);
 		echo $after_widget;
 	}
 
@@ -49,7 +49,6 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['ll'] = strip_tags( $new_instance['ll'] );
 		$instance['location'] = strip_tags( $new_instance['location'] );
 
 		return $instance;
@@ -65,38 +64,31 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 	public function form( $instance ) {
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
-		
+
 		}
 		else {
 			$title = __( 'FourSquare Local Explorer', 'text_domain' );
 		}
-		
-		if ( isset( $instance[ 'll' ] ) ) {
-			$ll = $instance[ 'll' ];			
-		}
-	
-		
+
 		if ( isset( $instance[ 'location' ] ) ) {
-			$location = $instance[ 'location' ];			
+			$location = $instance[ 'location' ];
 		}
-		
+
 		?>
-		
+
 		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 			<p>
-			<strong>Location (Only use one of these);</strong>		
-			<p>
-	
-			Latitude/Longitude(Better results)<br>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'll' ); ?>" name="<?php echo $this->get_field_name( 'll' ); ?>" type="text" value="<?php echo esc_attr( $ll ); ?>" />
-			<p>
-			Spelled out(Like you would at the bottom of an envelope)<br> <input class="widefat" id="<?php echo $this->get_field_id( 'location' ); ?>" name="<?php echo $this->get_field_name( 'location' ); ?>" type="text" value="<?php echo esc_attr( $location ); ?>" />
+			<strong>Location </strong>
+			<br />
 
-					
+		<input class="widefat" id="<?php echo $this->get_field_id( 'location' ); ?>" name="<?php echo $this->get_field_name( 'location' ); ?>" type="text" value="<?php echo esc_attr( $location ); ?>" /><br />
+			Spelled out City and State (Like you would at the bottom of an envelope), or Latitude Longitude combo<br>
+
+
 		</p>
-		<?php 
+		<?php
 	}
 
 } // class FourSquare_Explorer_Widget

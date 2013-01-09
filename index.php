@@ -68,7 +68,7 @@ define("CLIENT_ID", get_option('client_id'));
 define("CLIENT_SECRET", get_option('client_secret'));
 
 /* display widget */
-function foursquare_local($ll, $location) {
+function foursquare_local($location) {
 
 	// Load the Foursquare API library
 	$client_id = CLIENT_ID;
@@ -80,14 +80,9 @@ function foursquare_local($ll, $location) {
 	$foursquare = new FoursquareAPI($client_id, $client_secret);
 
 	//If we don't have either of these values, no reason to go forward. Just bail out
-	if (empty($ll) && empty($location)) return;
+	if (empty($location)) return;
 
-	// Prepare parameters
-	if (!empty($ll)) {
-		$params = array("ll"=>$ll,"section" => "food","venuePhotos" => 1, "limit" => 5);
-	} else {
-		$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => 5);
-	}
+	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => 5);
 	/*
 	For the time being, we are going to favor a lat/long result over a spelled out letter type of result just because
 	we'll get better results, in the case that both fields are filled out. We could possibly change that though.
