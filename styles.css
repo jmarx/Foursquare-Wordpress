@@ -8,16 +8,18 @@ div.venue  {
 	min-height:100px;
 }
 div.venue div {
-	font-size:12px;
+	font-size:11px;
 }
 a.venuetitle {
-	font-weight:bold;
+	font-size:14px;
+	margin-bottom:10px;
 }
 .venueScore {
     float: left;
     margin-right: 5px;
     position: relative;
     top: 3px;
+	display:inline;
 }
 .venueScore.positive {
     background: -moz-linear-gradient(center top , #8ECB51, #74B336) repeat scroll 0 0 transparent;
@@ -36,4 +38,9 @@ a.venuetitle {
     text-align: center;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
     width: 30px;
+}
+.menulink {
+	position:relative;
+	top:5px;
+	font-size:10px
 }
