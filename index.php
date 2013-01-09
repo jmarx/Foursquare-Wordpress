@@ -108,19 +108,18 @@ function foursquare_local($ll, $location) {
 		//loop through the items within that group and represents the venues
 				?>
 				<div class="venue">
-				<a target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a>
-				<br>
-				<?php
-				$featuredphotos = $venue->venue->featuredPhotos->items;
 
+				<div style="float:left; display:inline; margin-right:5px; width:45%">
+					<a class="venuetitle" target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a><br>
 
-				if (!empty($featuredphotos)) {
-					foreach($featuredphotos as $photo):
-					//Loop through the featured photos array. All we need is the url which is close to the top.
-						$photourl = $photo->url;
-					endforeach; ?>
-					<img width="100" height="100" src="<?php echo esc_html($photourl); ?>">
-				<?php $herenow = $venue->venue->hereNow;
+								<?php
+								$rating = $venue->venue->rating;
+								if (!empty($rating )) {
+									$ratingcheck = ($rating > 5 ? "positive" : "negative"); ?>
+									<div class="venueScore <?php echo $ratingcheck; ?>"><?php echo round($rating, 1); ?></div><br>
+								<?php
+								}
+								$herenow = $venue->venue->hereNow;
 					if (!empty($herenow)) {
 						$herenowcount = $herenow->count;
 						if (!empty($herenowcount) && ($herenowcount != 1)) {
@@ -129,16 +128,31 @@ function foursquare_local($ll, $location) {
 						elseif (!empty($herenowcount) && ($herenowcount == 1))  {
 							echo "<br>Here now: ".esc_html($herenowcount)." Person<br>";
 						}
+					} ?>
+				</div>
+				<div style="float:left; display:inline; width:52%">
+					<?php
+					//var_dump($venue);
+					$featuredphotos = $venue->venue->featuredPhotos->items;
+
+
+					if (!empty($featuredphotos)) {
+						foreach($featuredphotos as $photo):
+						//Loop through the featured photos array. All we need is the url which is close to the top.
+							$photourl = $photo->url;
+						endforeach; ?>
+						<img width="100" height="100" src="<?php echo esc_html($photourl); ?>">
+					<?php
 					}
-				}
-				else {
-					 echo '<img style="border:1px solid black" src="' .plugins_url( 'images/nopic.png' , __FILE__ ). '" >';
-				} ?>
+					else {
+						 echo '<img style="border:1px solid black" src="' .plugins_url( 'images/nopic.png' , __FILE__ ). '" >';
+					} ?>
 				</div>
 				<div style="clear:both"></div>
+				</div>
 		<?php
 		endforeach;
-		
+
 	endforeach;
 	//wooh, all done. After all that looping i need a #beer.
 }

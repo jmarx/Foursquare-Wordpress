@@ -1,3 +1,39 @@
 div.venue img {
     float:right;
 }
+div.venue  {
+	background-color:#eee;
+	padding:4px;
+	margin-top: 10px;
+	min-height:100px;
+}
+div.venue div {
+	font-size:12px;
+}
+a.venuetitle {
+	font-weight:bold;
+}
+.venueScore {
+    float: left;
+    margin-right: 5px;
+    position: relative;
+    top: 3px;
+}
+.venueScore.positive {
+    background: -moz-linear-gradient(center top , #8ECB51, #74B336) repeat scroll 0 0 transparent;
+}
+.venueScore.neutral, .venueScore.negative {
+    background: none repeat scroll 0 0 #B3B3B3;
+}
+.venueScore {
+    border-radius: 2px 2px 2px 2px;
+    color: #FFFFFF;
+    cursor: default;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 0;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    width: 30px;
+}
