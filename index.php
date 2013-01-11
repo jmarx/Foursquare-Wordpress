@@ -103,6 +103,12 @@ function foursquare_local($location) {
 		//loop through the items within that group and represents the venues
 				?>
 				<div class="venue">
+						<?php
+									$rating = $venue->venue->rating;
+									if (!empty($rating )) {
+										$ratingcheck = ($rating > 5 ? "positive" : "negative"); ?>
+										<div style="float:right" class="venueScore <?php echo $ratingcheck; ?>"><?php echo round($rating, 1); ?></div>
+									<?php } ?>
 					<?php $catimage = $venue->venue->categories[0]->icon->prefix; ?>
 				<img style="float:left; margin-right:3px;" src="<?php echo esc_attr($catimage); ?>32.png">
 
@@ -115,22 +121,19 @@ function foursquare_local($location) {
 				<div style="clear:both; height:3px;">&nbsp;</div>
 
 				<div style="margin-top:0px;">
-					<div style="float:left; display:inline; margin-right:5px; width:45%">
+					<div style="float:left; display:inline; margin-right:5px; width:57%">
 
 
-									<div style="margin-top:5px;">
-									<?php
-									$rating = $venue->venue->rating;
-									if (!empty($rating )) {
-										$ratingcheck = ($rating > 5 ? "positive" : "negative"); ?>
-										<div class="venueScore <?php echo $ratingcheck; ?>"><?php echo round($rating, 1); ?></div>
+									<div style="margin-top:0px;">
+
+
 										<?php if (!empty($venue->venue->menu)) { ?>
 											<a class="menulink" target="_blank" href="<?php echo $venue->venue->menu->url; ?>">Menu</a>
 											<div class="address"><?php echo $venue->venue->location->address; ?></div>
+										<?php }
 
-										<?php } else { echo "<br>";}
-									}
 										?>
+<div style="clear:both; height:0px;">&nbsp;</div>
 									</div>
 					<div style="clear:both; height:3px;">&nbsp;</div>
 
@@ -140,14 +143,21 @@ function foursquare_local($location) {
 						if (!empty($herenow)) {
 							$herenowcount = $herenow->count;
 							if (!empty($herenowcount) && ($herenowcount != 1)) {
-								echo "<br>Here now: ".esc_html($herenowcount)." People<br>";
+								echo "<div>Here now: ".esc_html($herenowcount)." People</div>";
 							}
 							elseif (!empty($herenowcount) && ($herenowcount == 1))  {
-								echo "<br>Here now: ".esc_html($herenowcount)." Person<br>";
+								echo "<div>Here now: ".esc_html($herenowcount)." Person</div>";
 							}
 						} ?>
+					<div style="clear:both; height:5px;">&nbsp;</div>
+							<?php
+								 if (!empty($venue->tips)) {
+									$tiptext = $venue->tips[0]->text;
+									echo '"'.$tiptext.'"';
+								}
+								?>
 					</div>
-					<div style="float:left; display:inline; width:52%">
+					<div style="float:left; display:inline; width:40%">
 						<?php
 						//var_dump($venue);
 						$featuredphotos = $venue->venue->featuredPhotos->items;
