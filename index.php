@@ -95,6 +95,9 @@ function foursquare_local($location) {
 
 	$venues = json_decode($response);
 	//response from api call
+	$metacode = $venues->meta->code;
+
+	if ($metacode == 200) {
 
 	$photourl = '';
 	foreach($venues->response->groups as $group):
@@ -186,4 +189,8 @@ function foursquare_local($location) {
 
 	endforeach;
 	//wooh, all done. After all that looping i need a #beer.
+	}
+	else{
+		echo "the local explorer is unavailable at the moment";
+	}
 }
