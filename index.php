@@ -79,6 +79,10 @@ function foursquare_local($location,$items) {
 	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($location)) return;
 	
+	if (empty($items)) {
+		$items = 5;
+	}
+	
 	
 
 	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => $items);
