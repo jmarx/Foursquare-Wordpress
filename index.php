@@ -183,7 +183,7 @@ function foursquare_local($location,$items) {
 		endforeach;
 
 	endforeach; ?>
-	<div style="background-color:#ccc; margin-top:10px; padding:3px; overflow:hidden"><div style="float:right; margin-right:3px;"><a target="_blank" href="https://foursquare.com/explore?cat=bestNearby&near=<?php echo esc_html($location); ?>">More from FourSquare >></a></div></div>
+	<div class="morelink"><div><a target="_blank" href="https://foursquare.com/explore?cat=bestNearby&near=<?php echo esc_html($location); ?>">More from FourSquare >></a></div></div>
 	<?
 	//wooh, all done. After all that looping i need a #beer.
 	}
