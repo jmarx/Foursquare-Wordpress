@@ -32,7 +32,7 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
-		foursquare_local($instance['location']);
+		foursquare_local($instance['location'],$instance['items']);
 		echo $after_widget;
 	}
 
@@ -50,6 +50,7 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		$instance = array();
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['location'] = strip_tags( $new_instance['location'] );
+		$instance['items'] = strip_tags( $new_instance['items'] );
 
 		return $instance;
 	}
@@ -73,6 +74,13 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		if ( isset( $instance[ 'location' ] ) ) {
 			$location = $instance[ 'location' ];
 		}
+		
+		if ( isset( $instance[ 'items' ] ) ) {
+			$items = $instance[ 'items' ];
+		}
+		else {	
+			$items = 5;
+		}
 
 		?>
 
@@ -80,6 +88,9 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 			<p>
+			<strong>Number of items to display </strong>	
+				<input  size="3" id="<?php echo $this->get_field_id( 'items' ); ?>" name="<?php echo $this->get_field_name( 'items' ); ?>" type="text" value="<?php echo intval( $items ); ?>" /><br />
+			<p>	
 			<strong>Location </strong>
 			<br />
 

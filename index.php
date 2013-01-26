@@ -61,15 +61,12 @@ function foursquare_local_options() {
 <?php
 }
 
-
-
 // use constants for now until I convert this to a class
 define("CLIENT_ID", get_option('client_id'));
 define("CLIENT_SECRET", get_option('client_secret'));
 
 /* display widget */
-function foursquare_local($location) {
-
+function foursquare_local($location,$items) {
 	// Load the Foursquare API library
 	$client_id = CLIENT_ID;
 	$client_secret = CLIENT_SECRET;
@@ -81,20 +78,18 @@ function foursquare_local($location) {
 
 	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($location)) return;
+	
+	
 
-	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => 5);
-	/*
-	For the time being, we are going to favor a lat/long result over a spelled out letter type of result just because
-	we'll get better results, in the case that both fields are filled out. We could possibly change that though.
-	todo: Write some javascript on the options page to not allow the user to populate bothe fields. Hopefully people will not be idiots and read the instructions
-	carefully.
-	*/
+	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => $items);
+
 
 	$response = $foursquare->GetPublic("venues/explore",$params);
 	//api call
 
 	$venues = json_decode($response);
 	//response from api call
+	
 	$metacode = $venues->meta->code;
 
 	if ($metacode == 200) {
@@ -187,7 +182,9 @@ function foursquare_local($location) {
 		<?php
 		endforeach;
 
-	endforeach;
+	endforeach; ?>
+	<div style="background-color:#ccc; margin-top:10px; padding:3px; overflow:hidden"><div style="float:right; margin-right:3px;"><a target="_blank" href="https://foursquare.com/explore?cat=bestNearby&near=<?php echo esc_html($location); ?>">More from FourSquare >></a></div></div>
+	<?
 	//wooh, all done. After all that looping i need a #beer.
 	}
 	else{
