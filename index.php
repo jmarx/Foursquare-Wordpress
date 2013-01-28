@@ -78,12 +78,12 @@ function foursquare_local($location,$items) {
 
 	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($location)) return;
-	
+
 	if (empty($items)) {
 		$items = 5;
 	}
-	
-	
+
+
 
 	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => $items);
 
@@ -93,7 +93,7 @@ function foursquare_local($location,$items) {
 
 	$venues = json_decode($response);
 	//response from api call
-	
+
 	$metacode = $venues->meta->code;
 
 	if ($metacode == 200) {
@@ -188,7 +188,7 @@ function foursquare_local($location,$items) {
 
 	endforeach; ?>
 	<div class="morelink"><div><a target="_blank" href="https://foursquare.com/explore?cat=bestNearby&near=<?php echo esc_html($location); ?>">More from FourSquare >></a></div></div>
-	<?
+	<?php
 	//wooh, all done. After all that looping i need a #beer.
 	}
 	else{
