@@ -7,6 +7,7 @@ Author: Jeff Marx
 
 /* load php foursquare sdk */
 require_once("foursquareapi/src/FoursquareAPI.class.php");
+
 require_once("widget.php");
 
 
@@ -176,8 +177,8 @@ function foursquare_local($location,$items) {
 									$tipgiver = $venue->tips[0]->user->firstName.' '.$venue->tips[0]->user->lastName.', '.$venue->tips[0]->user->homeCity;
 									$tiptext = $venue->tips[0]->text;
 									$tiptext = truncate($tiptext, 95);
-									echo '"'.$tiptext.'"';
-									echo '<div class="user">'.$tipgiver.'</div>';
+									echo '"'.esc_html($tiptext).'"';
+									echo '<div class="user">'.esc_html($tipgiver).'</div>';
 								}
 								?>
 					</div>
@@ -192,7 +193,7 @@ function foursquare_local($location,$items) {
 							//Loop through the featured photos array. All we need is the url which is close to the top.
 								$photourl = $photo->url;
 							endforeach; ?>
-							<img width="100" height="100" src="<?php echo esc_html($photourl); ?>">
+							<img width="100" height="100" src="<?php echo esc_url($photourl); ?>">
 						<?php
 						}
 						else {
