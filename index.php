@@ -65,8 +65,27 @@ function foursquare_local_options() {
 define("CLIENT_ID", get_option('client_id'));
 define("CLIENT_SECRET", get_option('client_secret'));
 
+
+
+function truncate($string, $length, $stopanywhere=false) {
+//truncates a string to a certain char length, stopping on a word if not specified otherwise.
+if (strlen($string) > $length) {
+//limit hit!
+$string = substr($string,0,($length -3));
+if ($stopanywhere) {
+	//stop anywhere
+		$string .= '...';
+        } else{
+             //stop on a word.
+            $string = substr($string,0,strrpos($string,' ')).'...';
+        }
+    }
+    return $string;
+}
+
 /* display widget */
 function foursquare_local($location,$items) {
+
 	// Load the Foursquare API library
 	$client_id = CLIENT_ID;
 	$client_secret = CLIENT_SECRET;
@@ -154,8 +173,12 @@ function foursquare_local($location,$items) {
 					<div style="clear:both; height:5px;">&nbsp;</div>
 							<?php
 								 if (!empty($venue->tips)) {
+								 //var_dump($tiptext = $venue->tips[0]);
+									$tipgiver = $venue->tips[0]->user->firstName.' '.$venue->tips[0]->user->lastName.', '.$venue->tips[0]->user->homeCity;
 									$tiptext = $venue->tips[0]->text;
+									$tiptext = truncate($tiptext, 95);
 									echo '"'.$tiptext.'"';
+									echo '<div class="user">'.$tipgiver.'</div>';
 								}
 								?>
 					</div>

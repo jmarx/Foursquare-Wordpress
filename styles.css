@@ -57,6 +57,10 @@ div.morelink div {
     float:right;
     margin-right:3px;
 }
+.user {
+	margin-top:5px;
+	font-style:italic;
+}
 .categories {
 
 }
