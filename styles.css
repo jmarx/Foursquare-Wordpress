@@ -24,6 +24,7 @@ a.venuetitle {
 }
 .venueScore.positive {
     background: -moz-linear-gradient(center top , #8ECB51, #74B336) repeat scroll 0 0 transparent;
+	background: -webkit-linear-gradient(top, #8ecb51, #74b336);
 }
 .venueScore.neutral, .venueScore.negative {
     background: none repeat scroll 0 0 #B3B3B3;
