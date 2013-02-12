@@ -173,7 +173,6 @@ function foursquare_local($location,$items) {
 					<div style="clear:both; height:5px;">&nbsp;</div>
 							<?php
 								 if (!empty($venue->tips)) {
-								 //var_dump($tiptext = $venue->tips[0]);
 									$tipgiver = $venue->tips[0]->user->firstName.' '.$venue->tips[0]->user->lastName.', '.$venue->tips[0]->user->homeCity;
 									$tiptext = $venue->tips[0]->text;
 									$tiptext = truncate($tiptext, 95);
