@@ -18,14 +18,14 @@ function foursquare_stylesheet() {
 
 /* Options page */
 add_action( 'admin_menu', 'foursquare_local_menu' );
-function register_mysettings() {
+function register_foursquare_local_settings() {
 	//register our settings
 	register_setting( 'foursquare-local-group', 'client_id' );
 	register_setting( 'foursquare-local-group', 'client_secret' );
 }
 
 //call register settings function
-add_action( 'admin_init', 'register_mysettings' );
+add_action( 'admin_init', 'register_foursquare_local_settings' );
 
 function foursquare_local_menu() {
 	add_options_page( 'Foursquare Local Explorer', 'Foursquare Local', 'manage_options', 'foursquare-local', 'foursquare_local_options' );
@@ -96,7 +96,7 @@ function foursquare_local($location,$items) {
 
 	$foursquare = new FoursquareAPI($client_id, $client_secret);
 
-	//If we don't have either of these values, no reason to go forward. Just bail out
+	//If we don't have this value, no reason to go forward. Just bail out
 	if (empty($location)) return;
 
 	if (empty($items)) {
@@ -105,7 +105,7 @@ function foursquare_local($location,$items) {
 
 
 
-	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => $items);
+	$params = array("near"=>strip_tags($location),"section" => "food","venuePhotos" => 1, "limit" => $items);
 
 
 	$response = $foursquare->GetPublic("venues/explore",$params);
