@@ -63,8 +63,8 @@ function foursquare_local_options() {
 }
 
 // use constants for now until I convert this to a class
-define("CLIENT_ID", get_option('client_id'));
-define("CLIENT_SECRET", get_option('client_secret'));
+define("FOURSQR_CLIENT_ID", get_option('client_id'));
+define("FOURSQR_CLIENT_SECRET", get_option('client_secret'));
 
 
 
@@ -88,8 +88,8 @@ if ($stopanywhere) {
 function foursquare_local($location,$items) {
 
 	// Load the Foursquare API library
-	$client_id = CLIENT_ID;
-	$client_secret = CLIENT_SECRET;
+	$client_id = FOURSQR_CLIENT_ID;
+	$client_secret = FOURSQR_CLIENT_SECRETSQR_CLIENT_SECRET;
 
 	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($client_id) && empty($client_secret)) return;
