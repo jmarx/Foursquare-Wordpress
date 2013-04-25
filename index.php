@@ -89,7 +89,7 @@ function foursquare_local($location,$items) {
 
 	// Load the Foursquare API library
 	$client_id = FOURSQR_CLIENT_ID;
-	$client_secret = FOURSQR_CLIENT_SECRETSQR_CLIENT_SECRET;
+	$client_secret = FOURSQR_CLIENT_SECRET;
 
 	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($client_id) && empty($client_secret)) return;
