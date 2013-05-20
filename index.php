@@ -18,14 +18,14 @@ function foursquare_stylesheet() {
 
 /* Options page */
 add_action( 'admin_menu', 'foursquare_local_menu' );
-function register_foursquare_local_settings() {
+function register_mysettings() {
 	//register our settings
 	register_setting( 'foursquare-local-group', 'client_id' );
 	register_setting( 'foursquare-local-group', 'client_secret' );
 }
 
 //call register settings function
-add_action( 'admin_init', 'register_foursquare_local_settings' );
+add_action( 'admin_init', 'register_mysettings' );
 
 function foursquare_local_menu() {
 	add_options_page( 'Foursquare Local Explorer', 'Foursquare Local', 'manage_options', 'foursquare-local', 'foursquare_local_options' );
@@ -63,8 +63,8 @@ function foursquare_local_options() {
 }
 
 // use constants for now until I convert this to a class
-define("FOURSQR_CLIENT_ID", get_option('client_id'));
-define("FOURSQR_CLIENT_SECRET", get_option('client_secret'));
+define("CLIENT_ID", get_option('client_id'));
+define("CLIENT_SECRET", get_option('client_secret'));
 
 
 
@@ -85,18 +85,18 @@ if ($stopanywhere) {
 }
 
 /* display widget */
-function foursquare_local($location,$items) {
+function foursquare_local($location,$items,$type) {
 
 	// Load the Foursquare API library
-	$client_id = FOURSQR_CLIENT_ID;
-	$client_secret = FOURSQR_CLIENT_SECRET;
+	$client_id = CLIENT_ID;
+	$client_secret = CLIENT_SECRET;
 
 	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($client_id) && empty($client_secret)) return;
 
 	$foursquare = new FoursquareAPI($client_id, $client_secret);
 
-	//If we don't have this value, no reason to go forward. Just bail out
+	//If we don't have either of these values, no reason to go forward. Just bail out
 	if (empty($location)) return;
 
 	if (empty($items)) {
@@ -105,7 +105,7 @@ function foursquare_local($location,$items) {
 
 
 
-	$params = array("near"=>strip_tags($location),"section" => "food","venuePhotos" => 1, "limit" => $items);
+	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => $items);
 
 
 	$response = $foursquare->GetPublic("venues/explore",$params);
@@ -143,8 +143,11 @@ function foursquare_local($location,$items) {
 				<div style="clear:both; height:3px;">&nbsp;</div>
 
 				<div style="margin-top:0px;">
-					<div style="float:left; display:inline; margin-right:5px; width:57%">
-
+					<?php if ($type == 'shortcode'): ?>
+						<div style="float:left; display:inline; margin-right:5px; width:79%">
+					<?php else: ?>
+						<div style="float:left; display:inline; margin-right:5px; width:57%">
+					<?php endif; ?>
 
 									<div style="margin-top:0px;">
 
@@ -182,9 +185,12 @@ function foursquare_local($location,$items) {
 								}
 								?>
 					</div>
-					<div style="float:left; display:inline; width:40%">
+					<?php if ($type == 'shortcode'): ?>
+						<div style="float:left; display:inline; width:20%">
+					<?php else: ?>
+						<div style="float:left; display:inline; width:40%">
+					<?php endif; ?>
 						<?php
-						//var_dump($venue);
 						$featuredphotos = $venue->venue->featuredPhotos->items;
 
 
@@ -218,3 +224,13 @@ function foursquare_local($location,$items) {
 		echo "the local explorer is unavailable at the moment";
 	}
 }
+function foursquare_local_shortcode_func($atts) {
+	extract(shortcode_atts(array(
+		'items' => '',
+		'location' => '',
+	), $atts));
+	$items = intval($items);
+	$location = esc_html($location);
+	foursquare_local($location,$items,'shortcode');
+}
+add_shortcode('foursquare_local','foursquare_local_shortcode_func','shortcode');
