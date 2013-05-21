@@ -102,17 +102,22 @@ function foursquare_local($location,$items,$type) {
 	if (empty($items)) {
 		$items = 5;
 	}
-
-
-
 	$params = array("near"=>$location,"section" => "food","venuePhotos" => 1, "limit" => $items);
 
+	//Check for an existing transient
+	$venues = get_transient('foursquare_'.$location.'_'.$items);
 
-	$response = $foursquare->GetPublic("venues/explore",$params);
-	//api call
+	if ($venues == false) {
 
-	$venues = json_decode($response);
-	//response from api call
+		//api call
+		$response = $foursquare->GetPublic("venues/explore",$params);
+
+		//response from api call
+		$venues = json_decode($response);
+
+		//set transient - even a short one - to prevent throttling
+		$venues = set_transient('foursquare_'.$location.'_'.$items,$venues,120);
+	}
 
 	$metacode = $venues->meta->code;
 
