@@ -116,9 +116,8 @@ function foursquare_local($location,$items,$type) {
 		$venues = json_decode($response);
 
 		//set transient - even a short one - to prevent throttling
-		$venues = set_transient('foursquare_'.$location.'_'.$items,$venues,120);
+		set_transient('foursquare_'.$location.'_'.$items,$venues,120);
 	}
-
 	$metacode = $venues->meta->code;
 
 	if ($metacode == 200) {
@@ -139,8 +138,8 @@ function foursquare_local($location,$items,$type) {
 					<?php $catimage = $venue->venue->categories[0]->icon->prefix; ?>
 				<img style="float:left; margin-right:3px;" src="<?php echo esc_attr($catimage); ?>32.png">
 
-				<a class="venuetitle" target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a>
-				<div class="categories">
+				<a style="margin-left:5px" class="venuetitle" target="_blank" href="<?php echo $venue->venue->canonicalUrl ?>"><?php echo esc_html($venue->venue->name) ?></a>
+				<div class="categories" style="margin-left:40px;">
 					<?php
 
 					echo $venue->venue->categories[0]->name; ?>
