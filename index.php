@@ -220,7 +220,7 @@ function foursquare_local($location,$items,$type) {
 		endforeach;
 
 	endforeach; ?>
-	<div class="morelink" style="background-color:#f8f8f8"><div><a target="_blank" href="https://foursquare.com/explore?cat=bestNearby&near=<?php echo esc_html($location); ?>">More from <img src="<?php echo plugins_url( 'images/foursquarelogo_arrow.png' , __FILE__ ); ?>"></a></div></div>
+	<div class="morelink"><div><a target="_blank" href="https://foursquare.com/explore?cat=bestNearby&near=<?php echo esc_html($location); ?>">More from <img src="<?php echo plugins_url( 'images/foursquarelogo_arrow.png' , __FILE__ ); ?>"></a></div></div>
 	<?php
 	//wooh, all done. After all that looping i need a #beer.
 	}
