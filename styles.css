@@ -1,3 +1,7 @@
+div.venue {
+    font-family: arial, sans-serif
+}
+
 div.venue img {
     float:right;
 }
@@ -49,14 +53,23 @@ a.venuetitle {
 	top:3px;
 }
 div.morelink{
-    background-color:#ccc;
+    background-color:#f8f8f8;
     margin-top:10px;
     padding:3px;
-    overflow:hidden
+    overflow:hidden;
+    font-family:arial, sans-serif;
 }
 div.morelink div {
     float:right;
     margin-right:3px;
+}
+div.morelink div a{
+    color:#2398c9;
+    
+}
+div.morelink div img {
+    position:relative;
+    top:3px;
 }
 .user {
 	margin-top:5px;
