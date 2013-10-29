@@ -32,7 +32,7 @@ class FourSquare_Explorer_Widget extends WP_Widget {
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
-		foursquare_local($instance['location'],$instance['items'],'widget');
+		Foursquare_Explorer::foursquare_local($instance['location'],$instance['items'],'widget');
 		echo $after_widget;
 	}
 
