@@ -17,12 +17,12 @@ class Foursquare_Explorer {
 		return $instance[0];
 	}
 
-	private function __construct() {
+	function __construct() {
 		require_once("foursquareapi/src/FoursquareAPI.class.php");
 		require_once("widget.php");
 		add_action( 'admin_menu', array( $this, 'foursquare_local_menu' ));
 		add_action( 'admin_init', array( $this, 'register_mysettings'));
-		add_shortcode('foursquare_local', array( $this, 'foursquare_local_shortcode_func','shortcode'));
+		add_shortcode('foursquare_local', array( $this, 'foursquare_local_shortcode_func'));
 	}
 	
 	function register_mysettings() {
@@ -88,7 +88,7 @@ class Foursquare_Explorer {
 		), $atts));
 		$items = intval($items);
 		$location = esc_html($location);
-		foursquare_local($location,$items,'shortcode');
+		self::foursquare_local($location,$items,'shortcode');
 	}
 
 	/* display widget */
